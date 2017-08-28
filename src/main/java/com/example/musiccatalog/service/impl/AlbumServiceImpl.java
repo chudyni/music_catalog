@@ -25,4 +25,20 @@ public class AlbumServiceImpl implements AlbumService {
         return this.albumRepository.findOne(id);
     }
 
+    @Override
+    public Iterable<Album> findByBandName(String bandName) {
+        return this.albumRepository.findAllByBandNameIgnoreCase(bandName);
+    }
+
+    @Override
+    public Album findByBandNameAndYear(String bandName, int year) {
+        return this.albumRepository.findOneByBandNameIgnoreCaseAndYear(bandName, year);
+    }
+
+    @Override
+    public Iterable<Album> findByYear(int year) {
+        return this.albumRepository.findAllByYear(year);
+    }
+
+
 }

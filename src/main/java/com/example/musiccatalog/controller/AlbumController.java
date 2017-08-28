@@ -29,4 +29,22 @@ public class AlbumController {
         model.addAttribute("album", this.albumService.getAlbum(id));
         return "album/album";
     }
+
+    @GetMapping("/byBand/{bandName}")
+    public String findByBandName(@PathVariable String bandName, final Model model) {
+        model.addAttribute("albums", this.albumService.findByBandName(bandName));
+        return "album/list";
+    }
+
+    @GetMapping("/byYear/{year}")
+    public String findByYear(@PathVariable int year, final Model model) {
+        model.addAttribute("albums", this.albumService.findByYear(year));
+        return "album/list";
+    }
+
+    @GetMapping("/{bandName}/{year}")
+    public String findByBandNameAndYear(@PathVariable String bandName, @PathVariable int year, final Model model) {
+        model.addAttribute("album", this.albumService.findByBandNameAndYear(bandName, year));
+        return "album/album";
+    }
 }

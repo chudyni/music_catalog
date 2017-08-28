@@ -7,7 +7,13 @@ import com.example.musiccatalog.domain.Album;
  */
 public interface AlbumService {
 
+    Album getAlbum(long id);
+
+    Album findByBandNameAndYear(String bandName, int year);
+
     Iterable<Album> list();
 
-    Album getAlbum(long id);
+    Iterable<Album> findByBandName(String bandName);
+
+    Iterable<Album> findByYear(int year);
 }
