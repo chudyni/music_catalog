@@ -1,7 +1,6 @@
 package com.example.musiccatalog.repository;
 
 import com.example.musiccatalog.domain.Album;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

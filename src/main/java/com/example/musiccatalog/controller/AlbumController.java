@@ -2,6 +2,8 @@ package com.example.musiccatalog.controller;
 
 import com.example.musiccatalog.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +26,14 @@ public class AlbumController {
         return "album/list";
     }
 
+    @Secured("ADMIN_ROLE")
     @GetMapping("/{id}")
     public String getAlbum(@PathVariable long id, final Model model) {
         model.addAttribute("album", this.albumService.getAlbum(id));
         return "album/album";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/byBand/{bandName}")
     public String findByBandName(@PathVariable String bandName, final Model model) {
         model.addAttribute("albums", this.albumService.findByBandName(bandName));
