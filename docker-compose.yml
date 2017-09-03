@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  mysqldb:
+    image: mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: musiccatalog
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - database_net
+    deploy:
+      replicas: 1
+
+
+  musiccatalog:
+    image: music_catalog
+    depends_on:
+      - demo-mysql
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysqldb:3306/musiccatalog'
+#      SPRING_PROFILES_ACTIVE: 'mysql'
+      MUSICCATALOG_DB_HOST=musiccatalog
+#      DATABASE_HOST=musiccatalog
+      DATABASE_USER=dbuser
+      DATABASE_PASSWORD=dbp4ss
+      DATABASE_NAME=demo
+      DATABASE_PORT=3306
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - database_net
+    deploy:
+      replicas: 1
+
+networks:
+  database_net:
+    driver: overlay
