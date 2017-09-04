@@ -42,10 +42,11 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>mysql</groupId>-->
-			<!--<artifactId>mysql-connector-java</artifactId>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<!--<dependency>-->
 			<!--<groupId>com.h2database</groupId>-->
 			<!--<artifactId>h2</artifactId>-->
@@ -67,22 +68,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 			<plugin>
 				<groupId>io.fabric8</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.20.0</version>
-				<!--<configuration>-->
-					<!--&lt;!&ndash;<imageName>${docker.image.prefix}/${project.artifactId}</imageName>&ndash;&gt;-->
-					<!--<imageName>{project.artifactId}</imageName>-->
-					<!--&lt;!&ndash;<dockerDirectory>src/main/docker</dockerDirectory>&ndash;&gt;-->
-					<!--<resources>-->
-						<!--<resource>-->
-							<!--<targetPath>/</targetPath>-->
-							<!--&lt;!&ndash;<directory>${project.build.directory}</directory>&ndash;&gt;-->
-							<!--&lt;!&ndash;<include>${project.build.finalName}.jar</include>&ndash;&gt;-->
-						<!--</resource>-->
-					<!--</resources>-->
-				<!--</configuration>-->
 				<configuration>
 					<dockerHost>unix:///var/run/docker.sock</dockerHost>
 
@@ -90,7 +80,7 @@
 						<image>
 							<name>${project.artifactId}</name>
 							<build>
-								<dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
+								<dockerFileDir>${project.basedir}/dockerfile</dockerFileDir>
 
 								<!--copies artficact to docker build dir in target-->
 								<assembly>
@@ -109,7 +99,7 @@
 									<link>mysqldb:mysqldb</link>
 								</links>
 								<env>
-									<SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/musicatalog</SPRING_DATASOURCE_URL>
+									<SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/musiccatalog</SPRING_DATASOURCE_URL>
 									<SPRING_PROFILES_ACTIVE>mysql</SPRING_PROFILES_ACTIVE>
 								</env>
 								<dependsOn>
@@ -137,7 +127,27 @@
 						</image>
 					</images>
 				</configuration>
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>start</id>-->
+						<!--<phase>pre-integration-test</phase>-->
+						<!--<goals>-->
+							<!--&lt;!&ndash; "build" should be used to create the images with the-->
+                                 <!--artifact &ndash;&gt;-->
+							<!--<goal>build</goal>-->
+							<!--<goal>start</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+					<!--<execution>-->
+						<!--<id>stop</id>-->
+						<!--<phase>post-integration-test</phase>-->
+						<!--<goals>-->
+							<!--<goal>stop</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
 			</plugin>
+
 		</plugins>
 	</build>
 

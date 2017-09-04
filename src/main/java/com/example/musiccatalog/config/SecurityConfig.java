@@ -8,15 +8,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * Created by marcin.bracisiewicz
  */
-//@Configuration
-//@EnableGlobalMethodSecurity(securedEnabled = true)
-//public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("marcin")
-//                .password("marcin")
-//                .roles("ADMIN", "USER");
-//    }
-//}
+@Configuration
+@EnableGlobalMethodSecurity(securedEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("marcin")
+                .password("marcin")
+                .roles("ADMIN", "USER");
+    }
+}
