@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 
 
 /**
@@ -46,12 +47,19 @@ public class TestDataProvider {
 
     private void loadBandsAlbums() {
         final Band aliceInChains = new Band("Alice In Chains");
-        this.bandRepository.save(aliceInChains);
+        if(!Optional.ofNullable(this.bandRepository.findOneByName(aliceInChains.getName())).isPresent()) {
+            this.bandRepository.save(aliceInChains);
+        }
 
         final Album blackGivesWayToBlue = new Album(aliceInChains, "Black Gives Way To Blue", 2009);
-        this.albumRepository.save(blackGivesWayToBlue);
+        if(!Optional.ofNullable(this.albumRepository.findOneByNameIgnoreCase(blackGivesWayToBlue.getName())).isPresent()) {
+            this.albumRepository.save(blackGivesWayToBlue);
+        }
 
         final Album dirt = new Album(aliceInChains, "Dirt", 1992);
-        this.albumRepository.save(dirt);
+        if(!Optional.ofNullable(this.albumRepository.findOneByNameIgnoreCase(dirt.getName())).isPresent()) {
+            this.albumRepository.save(dirt);
+        }
     }
+    
 }

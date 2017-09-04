@@ -26,6 +26,11 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    public Album findOneByName(String name) {
+        return this.albumRepository.findOneByNameIgnoreCase(name);
+    }
+
+    @Override
     public Iterable<Album> findByBandName(String bandName) {
         return this.albumRepository.findAllByBandNameIgnoreCase(bandName);
     }

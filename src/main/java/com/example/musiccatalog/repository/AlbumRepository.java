@@ -16,8 +16,11 @@ public interface AlbumRepository extends CrudRepository<Album, Long> {
 
     List<Album> findAllByBandNameIgnoreCase(String bandName);
 
+    Album findOneByNameIgnoreCase(String name);
+
     Album findOneByBandNameIgnoreCaseAndYear(String bandName, int year);
 
     @Query("select a from Album a where a.year = :year")
     List<Album> findAllByYear(@Param(value = "year") int year);
+
 }

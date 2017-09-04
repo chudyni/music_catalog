@@ -9,6 +9,8 @@ public interface AlbumService {
 
     Album getAlbum(long id);
 
+    Album findOneByName(String name);
+
     Album findByBandNameAndYear(String bandName, int year);
 
     Iterable<Album> list();
