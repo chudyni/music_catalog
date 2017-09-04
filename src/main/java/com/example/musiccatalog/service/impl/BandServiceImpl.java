@@ -23,6 +23,6 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public Band findOneByName(String name) {
-        return this.bandRepository.findOneByName(name);
+        return this.bandRepository.findOneByNameIgnoreCase(name);
     }
 }
