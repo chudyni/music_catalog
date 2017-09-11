@@ -34,9 +34,6 @@ public class TestDataProvider {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
     @PostConstruct
     public void init() {
         this.loadUsersRoles();
@@ -45,14 +42,7 @@ public class TestDataProvider {
 
     private void loadUsersRoles() {
         final Role user = new Role("USER_ROLE");
-        if(!Optional.ofNullable(this.roleRepository.findOneByName(user.getName())).isPresent()) {
-            this.roleRepository.save(user);
-        }
-
         final Role admin = new Role ("ADMIN_ROLE");
-        if(!Optional.ofNullable(this.roleRepository.findOneByName(admin.getName())).isPresent()) {
-            this.roleRepository.save(admin);
-        }
 
         final User marcinBracisiewicz = new User("m.bracisiewicz@gmail.com", "hello");
         marcinBracisiewicz.setRoles(new HashSet<>(Arrays.asList(admin, user)));
@@ -60,11 +50,6 @@ public class TestDataProvider {
             this.userRepository.save(marcinBracisiewicz);
         }
 
-        final User reader = new User("reader@gmail.com", "reader");
-        reader.setRoles(Collections.singleton(user));
-        if(!Optional.ofNullable(this.userRepository.findOneByEmail(reader.getEmail())).isPresent()) {
-            this.userRepository.save(reader);
-        }
     }
 
     private void loadBandsAlbums() {
