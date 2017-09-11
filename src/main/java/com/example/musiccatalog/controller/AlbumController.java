@@ -26,7 +26,8 @@ public class AlbumController {
         return "album/list";
     }
 
-    @Secured("ADMIN_ROLE")
+//    @Secured("ADMIN_ROLE")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public String getAlbum(@PathVariable long id, final Model model) {
         model.addAttribute("album", this.albumService.getAlbum(id));

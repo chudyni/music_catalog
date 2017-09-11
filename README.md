@@ -6,7 +6,7 @@ mvn clean package
 Build docker image:
 sudo docker:build
 
-Start linked apps:
+Start linked apps (can run in not propriate order -> then do again):
 sudo docker-compose-up ( -d )
 
 Sometimes docker-compose caches images:

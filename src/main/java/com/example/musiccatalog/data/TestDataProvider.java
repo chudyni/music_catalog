@@ -6,15 +6,12 @@ import com.example.musiccatalog.domain.auth.Role;
 import com.example.musiccatalog.domain.auth.User;
 import com.example.musiccatalog.repository.AlbumRepository;
 import com.example.musiccatalog.repository.BandRepository;
-import com.example.musiccatalog.repository.RoleRepository;
 import com.example.musiccatalog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 
